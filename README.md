@@ -1,3 +1,8 @@
 # rknn_stream
 
-# Project for streaming rknn inference using ffmpeg or zlmediakit.
+# Soc: RK3588
+# doing object detection using rtsp video stream.
+
+--main.cc Gstreamer backend
+--main_stream.cc ffmpeg
+--main_player.cc Zlmediakit
