@@ -1,11 +1,11 @@
 # rknn_stream
 
 ## Soc: RK3588
-## detect the real-time video stream using yolov5 (include rtsp decode and RKNN infer)
+## detect the real-time stream video using yolov5 (include rtsp decode and RKNN infer)
 
 Three main function
-  ##### --main.cc Gstreamer backend
-  ##### --main_stream.cc ffmpeg4.3
+  ##### --main.cc        opencv gstreamer backend
+  ##### --main_stream.cc ffmpeg --version 4.3
   ##### --main_player.cc Zlmediakit
 
 Refer repositories：
