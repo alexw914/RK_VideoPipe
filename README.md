@@ -17,7 +17,7 @@ There are four files in tests folder.
 
 | File | Intro |
 |:------|:------------:|
-|main_ffmpeg/zlmediakit.cc: |Decode video stream use MPP encoder.|
+|main_ffmpeg/zlmediakit.cc: |Decode video stream use MPP decoder.|
 |main_model.cc:| RKNN model samples.|
 |main_track.cc:| YOLOv5 + ByteTrack.|
 
