@@ -1,14 +1,37 @@
-# rknn_stream
+# RKNN-SERVER
 
-## Soc: RK3588
-## detect the real-time stream video using yolov5 (include rtsp decode and RKNN infer)
+This repo has realized some common models in RockChip SOC, such as 3588. It also supports some hardware acceleration when do letterbox or decode video stream.
 
-Three main functions:
-  ##### --main.cc        opencv gstreamer backend
-  ##### --main_stream.cc ffmpeg --version 4.3
-  ##### --main_player.cc Zlmediakit
+### RKNN models
 
-Refer repositories：
-  ##### https://github.com/MUZLATAN/ffmpeg_rtsp_mpp
-  ##### https://github.com/rockchip-linux/rknpu2
-  ##### https://github.com/airockchip/rknn_model_zoo
+This repo supports Object Detection, Classifier and Pose estimation Task as follows:
+
+| Type| Detection | Classifier | Pose | Track |
+|:------|:------------:|:------------:|:------------:|:------------:|
+| Models | YOLOv5 to v8 | Any | RTMPose | ByteTrack |
+
+
+### Introduce
+
+There are four files in tests folder.
+
+| File | Intro |
+|:------|:------------:|
+|main_ffmpeg/zlmediakit.cc: |Decode video stream use MPP encoder.|
+|main_model.cc:| RKNN model samples.|
+|main_track.cc:| YOLOv5 + ByteTrack.|
+
+### Build
+
+You can configure OpenCV and FFmpeg in Cmake/common.cmake. You don't need install other libraries. Build this repo test samples, just run:
+```
+./build-linux.sh
+```
+
+### Refer
+This repo refer some repositories：
+
+https://github.com/MUZLATAN/ffmpeg_rtsp_mpp
+https://github.com/airockchip/rknn_model_zoo
+https://github.com/ifzhang/ByteTrack
+https://github.com/HW140701/RTMPose-Deploy

@@ -11,14 +11,14 @@ sudo cat /sys/devices/system/cpu/cpufreq/policy0/cpuinfo_cur_freq
 echo "CPU4-5 可用频率:"
 sudo cat /sys/devices/system/cpu/cpufreq/policy4/scaling_available_frequencies
 sudo echo userspace > /sys/devices/system/cpu/cpufreq/policy4/scaling_governor
-sudo echo 2400000 > /sys/devices/system/cpu/cpufreq/policy4/scaling_setspeed
+sudo echo 2256000 > /sys/devices/system/cpu/cpufreq/policy4/scaling_setspeed
 echo "CPU4-5 当前频率:"
 sudo cat /sys/devices/system/cpu/cpufreq/policy4/cpuinfo_cur_freq
 
 echo "CPU6-7 可用频率:"
 sudo cat /sys/devices/system/cpu/cpufreq/policy6/scaling_available_frequencies
 sudo echo userspace > /sys/devices/system/cpu/cpufreq/policy6/scaling_governor
-sudo echo 2400000 > /sys/devices/system/cpu/cpufreq/policy6/scaling_setspeed
+sudo echo 2256000 > /sys/devices/system/cpu/cpufreq/policy6/scaling_setspeed
 echo "CPU6-7 当前频率:"
 sudo cat /sys/devices/system/cpu/cpufreq/policy6/cpuinfo_cur_freq
 
