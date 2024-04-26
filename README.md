@@ -88,7 +88,7 @@ int main(int argc, char** argv)
 平台
 - Ubuntu 22.04 jammy aarch64(已测试香橙派5B平台ubuntu系统和Rock5B平台Armbain系统)
 
-基础
+环境
 - C++ 17
 - OpenCV >= 4.6 (需支持FreeType, 否则需要改写部分OSD节点)
 - GStreamer (官网推荐完整安装，需额外支持rkmpp插件)
@@ -103,7 +103,7 @@ build/bin/rk_videopipe
 
 ### 参考项目
 
-[VideoPipe](https://github.com/sherlockchou86/VideoPipe.git): 主要参考项目，大部分节点定义和实现均由该仓库提供
-[trt_yolo_video_pipeline](https://github.com/1461521844lijin/trt_yolo_video_pipeline.git) 参考了FFmpeg的编解码的实现
-[rknn_model_zoo](https://github.com/airockchip/rknn_model_zoo) 参考了YOLO系列和分类模型实现，完成了C++类封装
+[VideoPipe](https://github.com/sherlockchou86/VideoPipe.git): 主要参考项目，大部分节点定义和实现均由该仓库提供 \
+[trt_yolo_video_pipeline](https://github.com/1461521844lijin/trt_yolo_video_pipeline.git) 参考了FFmpeg的编解码的实现 \
+[rknn_model_zoo](https://github.com/airockchip/rknn_model_zoo) 参考了YOLO系列和分类模型实现，完成了C++类封装 \
 [RTMPose-Deploy](https://github.com/HW140701/RTMPose-Deploy) 参考了RTMPose后处理方案，放弃了仿射变换实现，转用LetterBox实现。
