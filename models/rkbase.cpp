@@ -17,7 +17,7 @@ static void dump_tensor_attr(rknn_tensor_attr *attr)
             get_qnt_type_string(attr->qnt_type), attr->zp, attr->scale);
 }
 
-RKBASE::RKBASE(const std::string& model_path, int n)
+RKBASE::RKBASE(const std::string& model_path)
 {
     /* Create the neural network */
     spdlog::set_pattern("[%Y-%m-%d %H:%M:%S] [%^%l%$] [thread %t] %v");
@@ -32,15 +32,7 @@ RKBASE::RKBASE(const std::string& model_path, int n)
     }
 
     // set core mask
-    rknn_core_mask core_mask;
-    switch(n % 3){
-        case 0:
-            core_mask = RKNN_NPU_CORE_0;
-        case 1:
-            core_mask = RKNN_NPU_CORE_1;
-        case 2:
-            core_mask = RKNN_NPU_CORE_2;
-    }
+    rknn_core_mask core_mask = RKNN_NPU_CORE_AUTO;
     ret = rknn_set_core_mask(ctx, core_mask);
     if (ret < 0)
     {
@@ -128,6 +120,27 @@ RKBASE::~RKBASE()
     delete[] output_attrs;
     if (model_data)
         free(model_data);
+}
+
+int RKBASE::set_coremask(int n)
+{
+    // set core mask
+    rknn_core_mask core_mask;
+    switch(n % 3){
+        case 0:
+            core_mask = RKNN_NPU_CORE_0;
+        case 1:
+            core_mask = RKNN_NPU_CORE_1;
+        case 2:
+            core_mask = RKNN_NPU_CORE_2;
+    }
+    ret = rknn_set_core_mask(ctx, core_mask);
+    if (ret < 0)
+    {
+        spdlog::error("rknn_init core error ret={}", ret);
+        exit(-1);
+    }
+    return ret;
 }
 
 static unsigned char *load_data(FILE *fp, size_t ofst, size_t sz)

@@ -8,16 +8,14 @@
 #include "spdlog/spdlog.h"
 #include "nlohmann/json.hpp"
 
-// #include "image_drawing.h"
-// #include "image_utils.h"
-
 using json = nlohmann::json;
 
 class RKBASE
 {
 public:
-    RKBASE(const std::string& model_path, int n);
+    RKBASE(const std::string& model_path);
     ~RKBASE();
+    int set_coremask(int n);
 
 protected:
     int model_channel = 3;

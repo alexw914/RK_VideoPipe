@@ -41,12 +41,13 @@ struct DetectionResult{
     std::string label;
 };
 
-struct KeyPointDetectionResult {
-    std::vector<std::array<float, 2>> keypoints;
+struct KeyPointResult {
+    std::vector<std::pair<int, int>> keypoints;
     std::vector<float> scores;
 };
 
 struct ClsResult{
+    int id;
     std::string label;
     float score;
 };

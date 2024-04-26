@@ -1,0 +1,8 @@
+{
+    "model_path": "assets/rknns/person_yolov5.rknn",
+    "labels": ["person"],
+    "alarm_labels": ["person"],
+    "model_type": "YOLOv5",
+    "conf_threshold": 0.25,
+    "nms_threshold": 0.45
+}

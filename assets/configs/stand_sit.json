@@ -1,0 +1,6 @@
+{
+    "model_path": "assets/rknns/sit_resnet18.rknn",
+    "labels": ["sit", "stand"],
+    "alarm_labels": ["sit"],
+    "model_type": "ResNet18"
+}

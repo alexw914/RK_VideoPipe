@@ -182,7 +182,7 @@ void opencv_letter_box_resize(const cv::Mat &image, cv::Mat &padded_image, LETTE
 {
     // 调整图像大小
     cv::Mat resized_image;
-    cv::resize(image, resized_image, cv::Size(), lb.resize_scale_w, lb.resize_scale_h);
+    cv::resize(image, resized_image, cv::Size(lb.resize_width, lb.resize_height));
     // 在图像周围添加填充
     cv::copyMakeBorder(resized_image, padded_image, lb.h_pad_top, lb.h_pad_bottom, lb.w_pad_left, lb.w_pad_right, cv::BORDER_CONSTANT, pad_color);
 }

@@ -1,0 +1,4 @@
+{
+    "model_path": "assets/rknns/rtmpose.rknn",
+    "keypoint_num": 17
+}

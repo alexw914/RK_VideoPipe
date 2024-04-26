@@ -22,4 +22,4 @@ set(COMMON_LIBS Threads::Threads ${FFmpeg_LIBS} ${OpenCV_LIBS})
 #         ${CMAKE_SOURCE_DIR}/src/graph/*.cpp
 #         ${CMAKE_SOURCE_DIR}/src/infer/*.cpp
 #         ${CMAKE_SOURCE_DIR}/src/utils/*.cpp
-#         ${CMAKE_SOURCE_DIR}/src/pipeline/*.cpp)
+#         ${CMAKE_SOURCE_DIR}/src/*.cpp)
