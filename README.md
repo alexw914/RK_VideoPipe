@@ -5,22 +5,9 @@
 
 项目支持瑞芯微RKNN平台目标检测、图像分类以及关键点检测等视频分析应用，支持模型如下表。在models文件夹下定义了各类模型的实现方法。
 
-<style>
-.center 
-{
-  width: auto;
-  display: table;
-  margin-left: auto;
-  margin-right: auto;
-}
-</style>
-<div class="center">
-
 | 类型 | 目标检测 | 分类 | 关键点 | 目标追踪 |
 |:------|:------------:|:------------:|:------------:|:------------:|
 | 模型 | YOLOv5至v8 | 任意 | RTMPose | ByteTrack |
-
-</div>
 
 ### 功能介绍
 
