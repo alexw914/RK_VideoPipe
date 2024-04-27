@@ -86,7 +86,7 @@ int main(int argc, char** argv)
 ### 项目构建
 
 平台
-- Ubuntu 22.04 jammy aarch64(已测试香橙派5B平台ubuntu系统和Rock5B平台Armbain系统)
+- Ubuntu 22.04 jammy aarch64 / Debain (已测试香橙派5B平台ubuntu系统和Rock5B平台Armbain系统)
 
 环境
 - C++ 17
