@@ -25,7 +25,6 @@ vp_node文件夹：
 ### 实现案例
 
 在程序中定义整个节点流向即可，案例如下：
-![](./assets/sources/sample.png)
 ```
 /*-------------------------------------------
                   Main Functions
@@ -82,7 +81,7 @@ int main(int argc, char** argv)
     return 0;
 }
 ```
-
+![](./assets/sources/sample.png)
 ### 项目构建
 
 平台
