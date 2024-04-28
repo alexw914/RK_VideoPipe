@@ -1,0 +1,39 @@
+model_folder: ../assets/rknns
+
+base_model_conf:
+  model_path: !ref <model_folder>/person_yolov5.rknn
+  labels: ["person"]
+  conf_thresh: 0.35
+  nms_thresh: 0.45
+  alarm_labels: ["person"]
+  colors:
+    - [0, 255, 0]
+  anchors:  
+
+
+Models:
+  # ----------------单目标检测模型-----------------
+  WRZS: !new:models.detector.Detector
+    config: !ref <base_model_conf> 
+
+  # ----------------目标检测+分类-----------------
+  RYJZ: !new:models.pipe.DetClsPipe
+    det_conf: !ref <base_model_conf>
+    cls_conf:
+      model_path: !ref <model_folder>/sit_resnet18.rknn
+      labels: ['sit','stand']
+      alarm_labels: ['sit']
+      input_shape: [224, 224]
+
+  # ----------------目标检测+目标检测-----------------
+  WSJ: !new:models.pipe.DetDetPipe
+    first_conf: !ref <base_model_conf>
+    second_conf:
+      model_path: !ref <model_folder>/phone_yolov5.rknn 
+      labels: ["phone"]
+      conf_thresh: 0.5
+      nms_thresh: 0.4
+      alarm_labels: ["phone"]
+      colors:
+        - [0, 0, 255]
+      anchors:
