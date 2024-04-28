@@ -14,12 +14,3 @@ file(GLOB_RECURSE FFmpeg_LIBS
 
         
 set(COMMON_LIBS Threads::Threads ${FFmpeg_LIBS} ${OpenCV_LIBS})
-
-
-# include_directories(${CMAKE_SOURCE_DIR}/src)
-# file(GLOB_RECURSE CPP_SRC
-#         ${CMAKE_SOURCE_DIR}/src/ffmpeg/*.cpp
-#         ${CMAKE_SOURCE_DIR}/src/graph/*.cpp
-#         ${CMAKE_SOURCE_DIR}/src/infer/*.cpp
-#         ${CMAKE_SOURCE_DIR}/src/utils/*.cpp
-#         ${CMAKE_SOURCE_DIR}/src/*.cpp)
