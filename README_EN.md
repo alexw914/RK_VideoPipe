@@ -19,7 +19,7 @@ Main folder:
 
 vp_node文件夹：
 - nodes (Defitions of all Node)
-  - infer (根据节点处理顺序可实现目标检测+分类、目标检测+关键点、目标检测+目标检测三类组合任务)
+  - infer (infer Nodes, you can do combination algorithm such as Object Detection + Object Detection, Object Detection + Classification or Object Detection + KeyPoint Detection)
   - osd (Node for draw images)
   - vp_ffmpeg_src_node.cpp (Nodes for Video codec realized by FFmpeg. You must install rkmpp plugin first.)
   - vp_rk_rtsp_src_node.h  (Nodes for Video codec realized by RockChip mpp.)
