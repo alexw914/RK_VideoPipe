@@ -11,8 +11,8 @@ namespace vp_nodes {
     }
     
     vp_rk_first_yolo::~vp_rk_first_yolo() {
-        rk_model.reset();
         deinitialized();
+        // rk_model.reset();
     }
 
     // please refer to vp_infer_node::run_infer_combinations

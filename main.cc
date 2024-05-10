@@ -65,7 +65,7 @@ int main(int argc, char** argv)
     src_0->start();
 
     // getchar();
-    // rtsp_src_0->detach_recursively();
+    // src_0->detach_recursively();
     vp_utils::vp_analysis_board board({src_0});
     board.display();
 

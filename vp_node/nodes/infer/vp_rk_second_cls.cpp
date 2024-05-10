@@ -13,8 +13,8 @@ namespace vp_nodes {
     }
     
     vp_rk_second_cls::~vp_rk_second_cls() {
-        rk_model.reset();
         deinitialized();
+        // rk_model.reset();
     }
 
     void vp_rk_second_cls::run_infer_combinations(const std::vector<std::shared_ptr<vp_objects::vp_frame_meta>>& frame_meta_with_batch) {

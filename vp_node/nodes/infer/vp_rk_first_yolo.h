@@ -8,7 +8,7 @@ namespace vp_nodes {
     class vp_rk_first_yolo: public vp_primary_infer_node
     {
     private:
-        std::shared_ptr<YOLO> rk_model = nullptr;
+        std::shared_ptr<YOLO> rk_model;
     protected:
         // we need a totally new logic for the whole infer combinations
         // no separate step pre-defined needed in base class

@@ -9,7 +9,7 @@ namespace vp_nodes {
     {
     private:
         /* data */
-        std::shared_ptr<RTMPose> rk_model = nullptr;
+        std::shared_ptr<RTMPose> rk_model;
         vp_objects::vp_pose_type type;
 
     protected:

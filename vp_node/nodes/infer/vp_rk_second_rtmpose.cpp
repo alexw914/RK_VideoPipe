@@ -14,8 +14,8 @@ namespace vp_nodes {
     }
     
     vp_rk_second_rtmpose::~vp_rk_second_rtmpose() {
-        rk_model.reset();
         deinitialized();
+        rk_model.reset();
     }
 
     void vp_rk_second_rtmpose::run_infer_combinations(const std::vector<std::shared_ptr<vp_objects::vp_frame_meta>>& frame_meta_with_batch) {

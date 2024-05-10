@@ -29,10 +29,10 @@ namespace vp_nodes {
     }
     
     vp_ffmpeg_src_node::~vp_ffmpeg_src_node() {
-        m_demux.reset();
-        m_decoder.reset();
-        m_scaler.reset();
         deinitialized();
+        // m_demux.reset();
+        // m_decoder.reset();
+        // m_scaler.reset();
     }
     
     // define how to read video from rtsp stream, create frame meta etc.

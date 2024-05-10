@@ -7,6 +7,7 @@ find_package(OpenCV REQUIRED)
 
 # ffmpeg path
 include_directories(/usr/include/aarch64-linux-gnu)
+include_directories(/usr/include)
 file(GLOB_RECURSE FFmpeg_LIBS
         /usr/lib/aarch64-linux-gnu/libav*.so
         /usr/lib/aarch64-linux-gnu/libsw*.so

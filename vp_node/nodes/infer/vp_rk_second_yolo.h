@@ -9,7 +9,7 @@ namespace vp_nodes {
     {
     private:
         /* data */
-        std::shared_ptr<YOLO> rk_model = nullptr;
+        std::shared_ptr<YOLO> rk_model;
     protected:
         // we need a totally new logic for the whole infer combinations
         // no separate step pre-defined needed in base class
