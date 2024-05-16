@@ -5,6 +5,7 @@
 #include <vector>
 #include "yolo.h"
 #include "BYTETracker.h"
+#include <filesystem>
 
 /*-------------------------------------------
                   Main Functions
@@ -12,11 +13,11 @@
 
 int main(int argc, char** argv) 
 {
-
+    std::filesystem::current_path("/root/.vs/RK_VideoPipe/41b606b4-6586-4527-af89-a26a0ab1539d/src");
     auto begin_time = std::chrono::steady_clock::now();
     double duration = .0;
     cv::VideoCapture cap;
-    cap.open("assets/videos/test.mp4");
+    cap.open("assets/videos/vehicle.mp4");
 	if (!cap.isOpened())
 		return 0;
 
@@ -27,11 +28,9 @@ int main(int argc, char** argv)
     spdlog::info("Total frames: {}, frame width: {}, frame height: {}.", nFrame, img_w, img_h);
 
     YOLOConfig conf;
-    conf.model_path = std::string("assets/rknns/person_yolov5.rknn");
-    conf.labels.push_back("person");
-    conf.alarm_labels.push_back("person");
-    conf.type = ModelType::YOLOv5;
-    auto yolo = new YOLO(conf);
+    std::string json_path = "assets/configs/vehicle.json";
+    int ret = YOLO::load_config(json_path, conf);
+    auto yolo = std::make_shared<YOLO>(conf);
     
     cv::VideoWriter writer;
     writer = cv::VideoWriter("output.avi", cv::VideoWriter::fourcc('M','P','E','G'), fps, cv::Size(img_w, img_h));
@@ -57,17 +56,7 @@ int main(int argc, char** argv)
         std::vector<DetectionResult> det_res;
         yolo->run(img, det_res);
 
-        // to bytetrack format
-        std::vector<Object> objs;
-        for (const auto& res : det_res){
-            Object obj;
-            obj.rect = cv::Rect_<float>(res.box.top, res.box.left, res.box.bottom-res.box.top, res.box.right-res.box.left);
-            obj.label = res.id;
-            obj.prob = res.score;
-            objs.push_back(obj);
-        }
-
-        std::vector<STrack> output_stracks = tracker.update(objs);
+        std::vector<STrack> output_stracks = tracker.update(det_res);
 
         auto stop_time = std::chrono::steady_clock::now();
         duration = std::chrono::duration<double, std::milli>(stop_time - start_time).count();
@@ -80,7 +69,7 @@ int main(int argc, char** argv)
 			vector<float> tlwh = output_stracks[i].tlwh;
             cv::Point obj_center(tlwh[0] + tlwh[1] / 2, tlwh[1] + tlwh[3] / 2);
             cv::Scalar s = tracker.get_color(output_stracks[i].track_id);
-            putText(img, format("(%d) %.2f", output_stracks[i].track_id, output_stracks[i].score), Point(tlwh[0], tlwh[1] - 5),
+            putText(img, format("(%s: %d) %.2f", output_stracks[i].label.c_str(), output_stracks[i].track_id, output_stracks[i].score), Point(tlwh[0], tlwh[1] - 5),
                     0, 0.6, cv::Scalar(255, 0, 0), 2, LINE_AA);                
             rectangle(img, Rect(tlwh[0], tlwh[1], tlwh[2], tlwh[3]), s, 2);
         }

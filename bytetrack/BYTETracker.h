@@ -1,13 +1,7 @@
 #pragma once  //避免头文件重复包含
 
 #include "STrack.h"
-
-struct Object
-{
-    cv::Rect_<float> rect;
-    int label;
-    float prob;
-};
+#include "config.h"
 
 class BYTETracker
 {
@@ -15,7 +9,7 @@ public:
 	BYTETracker(int frame_rate = 30, int track_buffer = 30);
 	~BYTETracker();
 
-	vector<STrack> update(const vector<Object>& objects);
+	vector<STrack> update(const vector<DetectionResult>& objects);
 	cv::Scalar get_color(int idx);
 
 private:

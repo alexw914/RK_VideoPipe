@@ -16,7 +16,7 @@ BYTETracker::~BYTETracker()
 {
 }
 
-vector<STrack> BYTETracker::update(const vector<Object>& objects)
+vector<STrack> BYTETracker::update(const vector<DetectionResult>& objects)
 {
 
 	////////////////// Step 1: Get detections //////////////////
@@ -44,14 +44,15 @@ vector<STrack> BYTETracker::update(const vector<Object>& objects)
 		{
 			vector<float> tlbr_;
 			tlbr_.resize(4);
-			tlbr_[0] = objects[i].rect.x;
-			tlbr_[1] = objects[i].rect.y;
-			tlbr_[2] = objects[i].rect.x + objects[i].rect.width;
-			tlbr_[3] = objects[i].rect.y + objects[i].rect.height;
+			tlbr_[0] = objects[i].box.top;
+			tlbr_[1] = objects[i].box.left;
+			tlbr_[2] = objects[i].box.bottom;
+			tlbr_[3] = objects[i].box.right;
 
-			float score = objects[i].prob;
+			float score = objects[i].score;
+			std::string label = objects[i].label;
 
-			STrack strack(STrack::tlbr_to_tlwh(tlbr_), score);
+			STrack strack(STrack::tlbr_to_tlwh(tlbr_), score, label);
 			if (score >= track_thresh)
 			{
 				detections.push_back(strack);
@@ -60,7 +61,6 @@ vector<STrack> BYTETracker::update(const vector<Object>& objects)
 			{
 				detections_low.push_back(strack);
 			}
-			
 		}
 	}
 
@@ -77,11 +77,11 @@ vector<STrack> BYTETracker::update(const vector<Object>& objects)
 	strack_pool = joint_stracks(tracked_stracks, this->lost_stracks);
 	STrack::multi_predict(strack_pool, this->kalman_filter);
 
-	vector<vector<float> > dists;
+	vector<vector<float>> dists;
 	int dist_size = 0, dist_size_size = 0;
 	dists = iou_distance(strack_pool, detections, dist_size, dist_size_size);
 
-	vector<vector<int> > matches;
+	vector<vector<int>> matches;
 	vector<int> u_track, u_detection;
 	linear_assignment(dists, dist_size, dist_size_size, match_thresh, matches, u_track, u_detection);
 

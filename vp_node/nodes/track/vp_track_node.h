@@ -31,7 +31,7 @@ namespace vp_nodes {
         // remove cache tracks if it has been long time since last tracked.
         const int max_allowed_disappear_frames = 25;
     protected:
-        virtual std::shared_ptr<vp_objects::vp_meta> handle_frame_meta(std::shared_ptr<vp_objects::vp_frame_meta> meta) override final;
+        virtual std::shared_ptr<vp_objects::vp_meta> handle_frame_meta(std::shared_ptr<vp_objects::vp_frame_meta> meta) override;
         virtual std::shared_ptr<vp_objects::vp_meta> handle_control_meta(std::shared_ptr<vp_objects::vp_control_meta> meta) override final;
 
         // prepare data according to `track_for`

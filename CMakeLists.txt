@@ -31,8 +31,8 @@ include_directories(
     ${BASE_INCLUDES}
 )
 
-add_subdirectory(${CMAKE_SOURCE_DIR}/bytetrack bytetrack)
 add_subdirectory(${CMAKE_SOURCE_DIR}/models rknn_models)
+add_subdirectory(${CMAKE_SOURCE_DIR}/bytetrack bytetrack)
 add_subdirectory(${CMAKE_SOURCE_DIR}/videocodec videocodec)
 add_subdirectory(${CMAKE_SOURCE_DIR}/vp_node vp_node)
 
