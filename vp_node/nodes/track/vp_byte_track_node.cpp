@@ -49,7 +49,7 @@ namespace vp_nodes {
 				res.box = BOX{ i->get_rect().x, i->get_rect().y, i->get_rect().x + i->get_rect().width, i->get_rect().y + i->get_rect().height };
 				res.id = 0;
 				res.score = i->score;
-				res.label = std::string("label");
+				res.label = std::string("face");
 				det_res.push_back(res);
 				rects.push_back(i->get_rect());      // rect fo target (via i variable)
 			}
