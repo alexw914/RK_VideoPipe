@@ -30,8 +30,8 @@ namespace vp_nodes {
     
     vp_rk_rtsp_src_node::~vp_rk_rtsp_src_node() {
         deinitialized();
-        m_demux.reset();
-        m_decoder.reset();
+        // m_demux.reset();
+        // m_decoder.reset();
     }
     
     // define how to read video from rtsp stream, create frame meta etc.
