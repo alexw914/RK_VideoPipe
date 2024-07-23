@@ -98,8 +98,8 @@ namespace vp_nodes {
                 rga_buffer_t dst;
                 
                 src = wrapbuffer_virtualaddr((void*)data, width, height, RK_FORMAT_YCbCr_420_SP, width_stride, height_stride);
-                dst = wrapbuffer_virtualaddr((void*)img_buf, width, height, RK_FORMAT_RGB_888);
-                IM_STATUS STATUS = imcvtcolor(src, dst, RK_FORMAT_YCbCr_420_SP, RK_FORMAT_RGB_888);
+                dst = wrapbuffer_virtualaddr((void*)img_buf, width, height, RK_FORMAT_BGR_888);
+                IM_STATUS STATUS = imcvtcolor(src, dst, RK_FORMAT_YCbCr_420_SP, RK_FORMAT_BGR_888);
                 if (STATUS != IM_STATUS_SUCCESS){
                     VP_ERROR(vp_utils::string_format("[%s] Convert RGB failed!", ctx->node_name.c_str()));
                     if (img_buf) free(img_buf); 
@@ -128,7 +128,7 @@ namespace vp_nodes {
                     ctx->out_queue_semaphore.signal();
                     VP_DEBUG(vp_utils::string_format("[%s] after handling meta, out_queue.size()==>%d", ctx->node_name.c_str(), ctx->out_queue.size()));
                 }
-                if (img_buf) free(img_buf); 
+                if (img_buf) free(img_buf);
                 auto end = std::chrono::steady_clock::now();
                 int dur = std::chrono::duration<double, std::milli>(end - start).count();
                 // VP_INFO(vp_utils::string_format("[%s] Frame index: [%d], Callback [%d] ms", ctx->node_name.c_str(), ctx->frame_index, dur));

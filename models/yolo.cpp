@@ -68,6 +68,7 @@ void YOLO::run(const cv::Mat &src, std::vector<DetectionResult> &res)
         lb.reverse_available = true;
         cv::Mat lb_img;
         opencv_letter_box_resize(src, lb_img, lb);
+        cv::cvtColor(lb_img, lb_img, cv::COLOR_BGR2RGB);
         run_model(lb_img.data, lb, res);
     }
 }

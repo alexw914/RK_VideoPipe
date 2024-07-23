@@ -36,6 +36,7 @@ void Classifier::run(const cv::Mat &src, ClsResult &res)
         // ret = _resize_(src.data, resize_buf, rb);       // rga resize, may cause some error when use letterbox together.
         cv::Mat resized_img;
         cv::resize(src, resized_img, cv::Size(model_width, model_height));
+        cv::cvtColor(resized_img, resized_img, cv::COLOR_BGR2RGB);
         run_model(resized_img.data, res);
     }
     // if (resize_buf) free(resize_buf);
