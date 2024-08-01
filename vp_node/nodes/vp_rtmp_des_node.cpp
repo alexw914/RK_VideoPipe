@@ -47,7 +47,7 @@ namespace vp_nodes {
             if (!rtmp_writer.isOpened()) {
                 assert(rtmp_writer.open(this->gst_template, cv::CAP_GSTREAMER, 0, meta->fps, {resize_frame.cols, resize_frame.rows}));
             }
-            cv::cvtColor(resize_frame, resize_frame, cv::COLOR_RGB2BGR);
+            // cv::cvtColor(resize_frame, resize_frame, cv::COLOR_RGB2BGR);
             rtmp_writer.write(resize_frame);
             // for general works defined in base class
             return vp_des_node::handle_frame_meta(meta);
