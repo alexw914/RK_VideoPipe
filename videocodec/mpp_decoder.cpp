@@ -6,8 +6,8 @@
 #include <pthread.h>
 #include <sys/syscall.h>
 
-#define LOGD
 // #define LOGD
+#define LOGD  // Temporarily enabled for debugging
 
 static unsigned long GetCurrentTimeMS() {
     struct timeval tv;
@@ -66,25 +66,25 @@ int MppDecoder::Init(int v_type, int fps)
 
     MppDecCfg cfg       = NULL;
 
-    MppCtx mpp_ctx          = NULL;
-    ret = mpp_create(&mpp_ctx, &mpp_mpi);
+    // Use class member mpp_ctx directly, not a local variable!
+    ret = mpp_create(&this->mpp_ctx, &this->mpp_mpi);
     if (MPP_OK != ret) {
         LOGD("mpp_create failed ");
         return 0;
     }
 
-    ret = mpp_init(mpp_ctx, MPP_CTX_DEC, mpp_type);
+    ret = mpp_init(this->mpp_ctx, MPP_CTX_DEC, mpp_type);
     if (ret) {
-        LOGD("%p mpp_init failed ", mpp_ctx);
+        LOGD("%p mpp_init failed ", this->mpp_ctx);
         return -1;
     }
 
     mpp_dec_cfg_init(&cfg);
 
     /* get default config from decoder context */
-    ret = mpp_mpi->control(mpp_ctx, MPP_DEC_GET_CFG, cfg);
+    ret = this->mpp_mpi->control(this->mpp_ctx, MPP_DEC_GET_CFG, cfg);
     if (ret) {
-        LOGD("%p failed to get decoder cfg ret %d ", mpp_ctx, ret);
+        LOGD("%p failed to get decoder cfg ret %d ", this->mpp_ctx, ret);
         return -1;
     }
 
@@ -94,20 +94,20 @@ int MppDecoder::Init(int v_type, int fps)
      */
     ret = mpp_dec_cfg_set_u32(cfg, "base:split_parse", need_split);
     if (ret) {
-        LOGD("%p failed to set split_parse ret %d ", mpp_ctx, ret);
+        LOGD("%p failed to set split_parse ret %d ", this->mpp_ctx, ret);
         return -1;
     }
 
-    ret = mpp_mpi->control(mpp_ctx, MPP_DEC_SET_CFG, cfg);
+    ret = this->mpp_mpi->control(this->mpp_ctx, MPP_DEC_SET_CFG, cfg);
     if (ret) {
-        LOGD("%p failed to set cfg %p ret %d ", mpp_ctx, cfg, ret);
+        LOGD("%p failed to set cfg %p ret %d ", this->mpp_ctx, cfg, ret);
         return -1;
     }
 
     mpp_dec_cfg_deinit(cfg);
 
-    loop_data.ctx            = mpp_ctx;
-    loop_data.mpi            = mpp_mpi;
+    loop_data.ctx            = this->mpp_ctx;
+    loop_data.mpi            = this->mpp_mpi;
     loop_data.eos            = 0;
     loop_data.packet_size    = packet_size;
     loop_data.frame          = 0;
@@ -260,12 +260,12 @@ int MppDecoder::Decode(uint8_t* pkt_data, int pkt_size, int pkt_eos)
                         int fd = mpp_buffer_get_fd(mpp_frame_get_buffer(frame));
                         callback(this->usrdata, hor_stride, ver_stride, hor_width, ver_height, format, fd, data_vir);
                     }
-                    unsigned long cur_time_ms = GetCurrentTimeMS();
-                    long time_gap = 1000/this->fps - (cur_time_ms - this->last_frame_time_ms);
-                    LOGD("time_gap=%ld", time_gap);
-                    if (time_gap > 0) {
-                        usleep(time_gap * 1000);
-                    }
+                    // FPS limit removed for maximum throughput
+                    // Original code limited FPS to this->fps:
+                    // long time_gap = 1000/this->fps - (cur_time_ms - this->last_frame_time_ms);
+                    // if (time_gap > 0) {
+                    //     usleep(time_gap * 1000);
+                    // }
                     this->last_frame_time_ms = GetCurrentTimeMS();
                 }
                 frm_eos = mpp_frame_get_eos(frame);

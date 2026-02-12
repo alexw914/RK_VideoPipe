@@ -4,15 +4,18 @@
 
 namespace vp_objects {
         
-    vp_frame_meta::vp_frame_meta(cv::Mat frame, int frame_index, int channel_index, int original_width, int original_height, int fps): 
-        vp_meta(vp_meta_type::FRAME, channel_index), 
-        frame_index(frame_index), 
+    vp_frame_meta::vp_frame_meta(cv::Mat frame, int frame_index, int channel_index, int original_width, int original_height, int fps):
+        vp_meta(vp_meta_type::FRAME, channel_index),
+        frame_index(frame_index),
         original_width(original_width),
         original_height(original_height),
         fps(fps),
         frame(frame) {
-            assert(!frame.empty());
-    }
+            // Note: Empty frame is allowed for NV12 mode
+            // In NV12 mode, data will be provided via nv12_data pointer
+            // The is_nv12 flag will be set to true immediately after construction
+            // assert(!frame.empty());  // Removed to support NV12 mode
+        }
     
     // copy constructor of vp_frame_meta would NOT be called at most time.
     // only when it flow through vp_split_node with vp_split_node::split_with_deep_copy==true.
@@ -48,6 +51,14 @@ namespace vp_objects {
             for(auto& i: meta.ba_results) {
                 this->ba_results.push_back(i->clone());
             }
+
+            // copy NV12 format fields (no deep copy needed, just pointers)
+            this->is_nv12 = meta.is_nv12;
+            this->dma_fd = meta.dma_fd;
+            this->nv12_data = meta.nv12_data;
+            this->nv12_data_size = meta.nv12_data_size;
+            this->stride_h = meta.stride_h;
+            this->stride_v = meta.stride_v;
     }
     
     vp_frame_meta::~vp_frame_meta() {

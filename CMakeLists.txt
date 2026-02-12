@@ -47,10 +47,15 @@ target_link_libraries(rk_videopipe
     vp_node
 )
 
-install(TARGETS  ${PROJECT_NAME} DESTINATION .)
-install(PROGRAMS ${BASE_LIBS} DESTINATION lib)
-install(PROGRAMS ${RKNN_RT_LIB} DESTINATION lib)
-install(PROGRAMS ${MPP_LIB} DESTINATION lib)
-install(PROGRAMS ${RGA_LIB} DESTINATION lib)
-install(PROGRAMS ${YAML_LIB} DESTINATION lib)
-install(PROGRAMS ${ZLMEDIAKIT_LIB} DESTINATION lib)
+# Optimized version with MPP+SDL2 support
+add_executable(rk_videopipe_opt
+    main_optimized.cpp
+)
+target_link_libraries(rk_videopipe_opt
+    ${COMMON_LIBS}
+    ${BASE_LIBS}
+    rknn_models
+    videocodec
+    vp_node
+)
+

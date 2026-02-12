@@ -59,6 +59,23 @@ namespace vp_objects {
         // deep copy needed here for this member.
         cv::Mat osd_frame;
 
+        // NV12 format support for hardware acceleration (MPP decoder output)
+        // When is_nv12 is true, nv12_data contains direct MPP decoder output
+        bool is_nv12 = false;
+
+        // DMA buffer fd from MPP decoder (for zero-copy rendering)
+        int dma_fd = -1;
+
+        // NV12 data pointer (Y plane followed by interleaved UV plane)
+        void* nv12_data = nullptr;
+
+        // Size of NV12 data buffer
+        size_t nv12_data_size = 0;
+
+        // Stride information for NV12 format
+        int stride_h = 0;  // horizontal stride
+        int stride_v = 0;  // vertical stride
+
         // mask for the WHOLE frame, filled by Semantic Segmentation nodes if exists.
         // deep copy needed here for this member.
         cv::Mat mask;

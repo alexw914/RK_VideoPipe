@@ -115,6 +115,9 @@ namespace vp_nodes {
 
         // get description of node
         virtual std::string to_string();
+
+        // Check if node is alive
+        bool is_alive() const { return alive; }
     };
 
 }

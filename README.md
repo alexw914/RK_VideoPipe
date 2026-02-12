@@ -100,6 +100,34 @@ cd RK_VideoPipe
 build/bin/rk_videopipe
 ```
 
+### 本地 MP4 文件显示示例
+
+按以下步骤可快速跑通“读取本地 mp4 并显示”：
+
+1. 准备测试视频（仓库已自带示例）：
+```
+assets/videos/person.mp4
+```
+2. 确认 `main.cc` 使用文件源节点，且路径指向本地 mp4：
+```cpp
+auto src_0 = std::make_shared<vp_nodes::vp_file_src_node>(
+      "file_src_0", 0, "assets/videos/person.mp4", 1.0, true, "mppvideodec");
+```
+3. 构建并运行：
+```bash
+./build-linux.sh
+build/rk_videopipe
+```
+4. 程序启动后会弹出显示窗口（`vp_screen_des_node`），可看到检测/跟踪/关键点叠加结果。
+
+如需替换为你自己的视频，只需把 `main.cc` 中第三个参数改为你的 mp4 路径（例如 `"/data/test/demo.mp4"`），重新编译后运行即可。
+
+若无法显示，优先检查：
+```bash
+gst-launch-1.0 --version
+ls -l assets/videos/person.mp4
+```
+
 ### 参考项目
 
 [VideoPipe](https://github.com/sherlockchou86/VideoPipe.git): 主要参考项目，大部分节点定义和实现均由该仓库提供 \
